@@ -1,40 +1,26 @@
-no sleep
-Number of writters: 10 
-Number of readers: 500 
-Writter retry count: 30 
-Reader retry count: 60 
-Min writer wait time: 2.000000 milliseconds
-Min reader wait time: 1.000000 milliseconds
-Max writer wait time: 24899.000000 milliseconds
-Max reader wait time: 41880.000000 milliseconds
-Average writer wait time: 840.263306 milliseconds
-Average reader wait time: 51.259666 milliseconds
-Total writer wait time: 252079.000000 milliseconds
-Total reader wait time: 1537790.000000 milliseconds
+do {
+    wait(order)
+    wait(mutex);
+    read_count++;
+    if (read_count == 1)
+        wait(rw_mutex);
+    signal(order)
+    signal(mutex);
+    // read is performed
+    wait(mutex);
+    read_count--;
+    if (read_count == 0)
+        signal(rw_mutex);
+    signal(mutex);
+} while (true);
 
-with sleep
-Number of writters: 10 
-Number of readers: 500 
-Writter retry count: 30 
-Reader retry count: 60 
-Min writer wait time: 4.000000 milliseconds
-Min reader wait time: 4.000000 milliseconds
-Max writer wait time: 1440.000000 milliseconds
-Max reader wait time: 1769.000000 milliseconds
-Average writer wait time: 157.576660 milliseconds
-Average reader wait time: 97.210335 milliseconds
-Total writer wait time: 47273.000000 milliseconds
-Total reader wait time: 2916310.000000 milliseconds
 
-Number of writters: 10 
-Number of readers: 500 
-Writter retry count: 30 
-Reader retry count: 60 
-Min writer wait time: 3.000000 milliseconds
-Min reader wait time: 3.000000 milliseconds
-Max writer wait time: 2351.000000 milliseconds
-Max reader wait time: 1773.000000 milliseconds
-Average writer wait time: 182.853333 milliseconds
-Average reader wait time: 96.612267 milliseconds
-Total writer wait time: 54856.000000 milliseconds
-Total reader wait time: 2898368.000000 milliseconds
+do {
+    wait(order)
+    wait(rw_mutex);
+    signal(order)
+    ..
+    // write is performed
+    …
+    signal(rw_mutex);
+} while (true);

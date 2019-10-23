@@ -109,7 +109,8 @@ int main(int argc, char *argv[])
     // run it multiple times to get averages wait time values
     int average_count = 10;
     for(int i = 0; i < average_count; i++ ){
-        printf("%d \n", i);
+        // if (i == 1) print_read = 0;
+        // printf("%d \n", i);
         // 0 value for pshared means shared by threads 
         sem_init(&rw_mutex, 0, 1); 
         sem_init(&mutex, 0, 1);   
@@ -166,15 +167,15 @@ int main(int argc, char *argv[])
     printf("Number of writters: %d \n", w_count);
     printf("Number of readers: %d \n", r_count);
     printf("Writter retry count: %d \n", writter_retries);
-    printf("Reader retry count: %d \n", reader_retries);
+    printf("Reader retry count: %d \n \n", reader_retries);
+
+    printf("Min reader wait time: %f milliseconds\n", rmin_avg/average_count);
+    printf("Max reader wait time: %f milliseconds\n", rmax_avg/average_count);
+    printf("Average reader wait time: %f milliseconds\n", reader_total_wait/(r_count*reader_retries *average_count));
+    printf("Total reader wait time: %f milliseconds\n \n", reader_total_wait/average_count);
 
     printf("Min writer wait time: %f milliseconds\n", wmin_avg/average_count);
     printf("Max writer wait time: %f milliseconds\n", wmax_avg/average_count);
     printf("Average writer wait time: %f milliseconds\n", writer_total_wait/(w_count*writter_retries*average_count));
     printf("Total writer wait time: %f milliseconds\n", writer_total_wait/average_count);
-
-    printf("Min reader wait time: %f milliseconds\n", rmin_avg/average_count);
-    printf("Max reader wait time: %f milliseconds\n", rmax_avg/average_count);
-    printf("Average reader wait time: %f milliseconds\n", reader_total_wait/(r_count*reader_retries *average_count));
-    printf("Total reader wait time: %f milliseconds\n", reader_total_wait/average_count);
 }
