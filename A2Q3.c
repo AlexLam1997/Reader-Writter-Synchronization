@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define w_count 5
-#define r_count 900
+#define r_count 800
 
 int print_read = 0;
 
@@ -109,8 +109,8 @@ int main(int argc, char *argv[])
     // run it multiple times to get averages wait time values
     int average_count = 10;
     for(int i = 0; i < average_count; i++ ){
-        // if (i == 1) print_read = 0;
-        // printf("%d \n", i);
+        if (i == 1) print_read = 0;
+        printf("%d \n", i);
         // 0 value for pshared means shared by threads 
         sem_init(&rw_mutex, 0, 1); 
         sem_init(&mutex, 0, 1);   
@@ -164,6 +164,7 @@ int main(int argc, char *argv[])
     }
 
     printf("----------------------------------- \n");
+    printf("Averaged results over %d runs: \n", average_count);
     printf("Number of writters: %d \n", w_count);
     printf("Number of readers: %d \n", r_count);
     printf("Writter retry count: %d \n", writter_retries);

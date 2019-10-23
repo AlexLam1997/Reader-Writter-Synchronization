@@ -9,6 +9,14 @@ LDFLAGS = -lpthread -lrt
 writers = 30
 readers = 60
 
+q1: A2Q1.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+	./$@ $(writers) $(readers)
+
+q3: A2Q3.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+	./$@ $(writers) $(readers)
+
 $(program_name): $(obj)
 	$(CC) -o $@ $^ $(LDFLAGS)
 	./$(program_name) $(writers) $(readers)
