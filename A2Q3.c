@@ -7,6 +7,7 @@
 
 #define w_count 5
 #define r_count 800
+#define AVG_COUNT 10
 
 int print_read = 0;
 
@@ -107,7 +108,7 @@ int main(int argc, char *argv[])
     int reader_retries = atoi(argv[2]);
     
     // run it multiple times to get averages wait time values
-    int average_count = 10;
+    int average_count = AVG_COUNT;
     for(int i = 0; i < average_count; i++ ){
         if (i == 1) print_read = 0;
         printf("%d \n", i);
@@ -119,14 +120,6 @@ int main(int argc, char *argv[])
         pthread_t writers[writter_count]; 
         pthread_t readers[reader_count]; 
 
-        for (int count = 0; count < writter_count; ++count){
-            if (pthread_create(&writers[count], NULL, writer, &writter_retries) != 0)
-            {
-            fprintf(stderr, "error: Cannot create thread # %d\n", count);
-            break;
-            }
-        }
-
         for (int count = 0; count < reader_count; ++count){
             if (pthread_create(&readers[count], NULL, reader, &reader_retries) != 0)
             {
@@ -135,10 +128,11 @@ int main(int argc, char *argv[])
             }
         }
 
-        for (int i = 0; i < writter_count; ++i){
-        if (pthread_join(writers[i], NULL) != 0)
+        for (int count = 0; count < writter_count; ++count){
+            if (pthread_create(&writers[count], NULL, writer, &writter_retries) != 0)
             {
-            fprintf(stderr, "error: Cannot join writer thread # %d\n", i);
+            fprintf(stderr, "error: Cannot create thread # %d\n", count);
+            break;
             }
         }
 
@@ -148,6 +142,14 @@ int main(int argc, char *argv[])
             fprintf(stderr, "error: Cannot join reader thread # %d\n", i);
             }
         }
+        
+        for (int i = 0; i < writter_count; ++i){
+        if (pthread_join(writers[i], NULL) != 0)
+            {
+            fprintf(stderr, "error: Cannot join writer thread # %d\n", i);
+            }
+        }
+
         sem_destroy(&rw_mutex);
         sem_destroy(&mutex);
 

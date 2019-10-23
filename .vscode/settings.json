@@ -3,6 +3,8 @@
         "bitset": "c",
         "chrono": "c",
         "algorithm": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "pthread.h": "c",
+        "stdio.h": "c"
     }
 }

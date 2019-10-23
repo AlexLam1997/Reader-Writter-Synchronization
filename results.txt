@@ -1,0 +1,22 @@
+// Before fix
+// Min reader wait time: 2.700000 milliseconds
+// Max reader wait time: 13219.400391 milliseconds
+// Average reader wait time: 259.696075 milliseconds
+// Total reader wait time: 12465412.000000 milliseconds
+ 
+// Min writer wait time: 61.099998 milliseconds
+// Max writer wait time: 16386.000000 milliseconds
+// Average writer wait time: 1298.426025 milliseconds
+// Total writer wait time: 194763.906250 milliseconds
+
+
+// After fix
+// Min reader wait time: 3.400000 milliseconds
+// Max reader wait time: 10474.099609 milliseconds
+// Average reader wait time: 271.567291 milliseconds
+// Total reader wait time: 13035230.000000 milliseconds
+ 
+// Min writer wait time: 39.099998 milliseconds
+// Max writer wait time: 4243.600098 milliseconds
+// Average writer wait time: 560.218689 milliseconds
+// Total writer wait time: 84032.796875 milliseconds
