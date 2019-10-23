@@ -6,12 +6,11 @@ CC= gcc
 
 LDFLAGS = -lpthread -lrt
 
-writers = 1
-readers = 1
+writers = 30
+readers = 60
 
 $(program_name): $(obj)
 	$(CC) -o $@ $^ $(LDFLAGS)
-    # $(CC) -o $@ $^ $(LDFLAGS)
 	./$(program_name) $(writers) $(readers)
 	
 $(debug_name): $(obj)
